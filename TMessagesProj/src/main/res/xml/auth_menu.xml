@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/Settings"/>
+    <PreferenceScreen android:key="account_settings"
+        android:title="@string/AccountSettings"
+        android:summary="">
+        <intent android:action="org.blaez.ziosgram.OPEN_ACCOUNT"
+            android:targetPackage="org.blaez.ziosgram"
+            android:targetClass="org.blaez.ui.LaunchActivity"/>
+    </PreferenceScreen>
+</PreferenceScreen>

@@ -1,0 +1,53 @@
+/*
+ * This is the source code of ZiosGram for Android v. 3.x.x
+ * It is licensed under GNU GPL v. 2 or later.
+ * You should have received a copy of the license in this archive (see LICENSE).
+ *
+ * Copyright Nikolai Kudashov, 2013-2017.
+ */
+
+package org.blaez.ui.Cells;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+
+import org.blaez.ziosgram.LocaleController;
+import org.blaez.ui.ActionBar.Theme;
+import org.blaez.ui.Components.LayoutHelper;
+
+public class TextBlockCell extends FrameLayout {
+
+    private TextView textView;
+    private boolean needDivider;
+
+    public TextBlockCell(Context context) {
+        super(context);
+
+        textView = new TextView(context);
+        textView.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
+        textView.setGravity((LocaleController.isRTL ? Gravity.RIGHT : Gravity.LEFT) | Gravity.CENTER_VERTICAL);
+        addView(textView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, (LocaleController.isRTL ? Gravity.RIGHT : Gravity.LEFT) | Gravity.TOP, 17, 10, 17, 10));
+    }
+
+    public void setTextColor(int color) {
+        textView.setTextColor(color);
+    }
+
+    public void setText(String text, boolean divider) {
+        textView.setText(text);
+        needDivider = divider;
+        setWillNotDraw(!divider);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        if (needDivider) {
+            canvas.drawLine(getPaddingLeft(), getHeight() - 1, getWidth() - getPaddingRight(), getHeight() - 1, Theme.dividerPaint);
+        }
+    }
+}
